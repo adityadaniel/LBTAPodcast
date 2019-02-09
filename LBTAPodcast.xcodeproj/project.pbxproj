@@ -12,6 +12,7 @@
 		1130F95E21FECF680056D7BB /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1130F95D21FECF680056D7BB /* APIService.swift */; };
 		1130F96521FEE8EA0056D7BB /* PodcastCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1130F96421FEE8EA0056D7BB /* PodcastCell.xib */; };
 		1130F96721FEE9690056D7BB /* PodcastCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1130F96621FEE9690056D7BB /* PodcastCell.swift */; };
+		1130F969220323CE0056D7BB /* EpisodesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1130F968220323CE0056D7BB /* EpisodesController.swift */; };
 		1131965C21D5F34D00B3D1C1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1131965B21D5F34D00B3D1C1 /* AppDelegate.swift */; };
 		1131965E21D5F34D00B3D1C1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1131965D21D5F34D00B3D1C1 /* ViewController.swift */; };
 		1131966321D5F34E00B3D1C1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1131966221D5F34E00B3D1C1 /* Assets.xcassets */; };
@@ -26,6 +27,7 @@
 		1130F95D21FECF680056D7BB /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		1130F96421FEE8EA0056D7BB /* PodcastCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PodcastCell.xib; sourceTree = "<group>"; };
 		1130F96621FEE9690056D7BB /* PodcastCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodcastCell.swift; sourceTree = "<group>"; };
+		1130F968220323CE0056D7BB /* EpisodesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodesController.swift; sourceTree = "<group>"; };
 		1131965821D5F34D00B3D1C1 /* LBTAPodcast.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LBTAPodcast.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1131965B21D5F34D00B3D1C1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1131965D21D5F34D00B3D1C1 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -54,6 +56,7 @@
 			isa = PBXGroup;
 			children = (
 				1130F95721FEB2590056D7BB /* PodcastsSearchController.swift */,
+				1130F968220323CE0056D7BB /* EpisodesController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -236,6 +239,7 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-LBTAPodcast/Pods-LBTAPodcast-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/FeedKit/FeedKit.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -243,6 +247,7 @@
 			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FeedKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -260,6 +265,7 @@
 				1130F95821FEB2590056D7BB /* PodcastsSearchController.swift in Sources */,
 				1131965E21D5F34D00B3D1C1 /* ViewController.swift in Sources */,
 				1131965C21D5F34D00B3D1C1 /* AppDelegate.swift in Sources */,
+				1130F969220323CE0056D7BB /* EpisodesController.swift in Sources */,
 				1131966E21D5F42300B3D1C1 /* MainTabBarController.swift in Sources */,
 				1130F95E21FECF680056D7BB /* APIService.swift in Sources */,
 				1130F95A21FEB3690056D7BB /* Podcast.swift in Sources */,

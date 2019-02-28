@@ -21,6 +21,8 @@
 		1131966321D5F34E00B3D1C1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1131966221D5F34E00B3D1C1 /* Assets.xcassets */; };
 		1131966621D5F34E00B3D1C1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1131966421D5F34E00B3D1C1 /* LaunchScreen.storyboard */; };
 		1131966E21D5F42300B3D1C1 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1131966D21D5F42300B3D1C1 /* MainTabBarController.swift */; };
+		114E3A5D2227868300EC5A05 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114E3A5C2227868300EC5A05 /* String.swift */; };
+		114E3A5F2227899400EC5A05 /* RSSFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114E3A5E2227899400EC5A05 /* RSSFeed.swift */; };
 		DBEFFF68A9A9F5700B4D8C8F /* Pods_LBTAPodcast.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1555A0CF81E348918744547B /* Pods_LBTAPodcast.framework */; };
 /* End PBXBuildFile section */
 
@@ -41,6 +43,8 @@
 		1131966521D5F34E00B3D1C1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1131966721D5F34E00B3D1C1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1131966D21D5F42300B3D1C1 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
+		114E3A5C2227868300EC5A05 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
+		114E3A5E2227899400EC5A05 /* RSSFeed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSSFeed.swift; sourceTree = "<group>"; };
 		1555A0CF81E348918744547B /* Pods_LBTAPodcast.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LBTAPodcast.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7FE621B5FDA0C3103F88F55C /* Pods-LBTAPodcast.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LBTAPodcast.release.xcconfig"; path = "Pods/Target Support Files/Pods-LBTAPodcast/Pods-LBTAPodcast.release.xcconfig"; sourceTree = "<group>"; };
 		AB0F9E2F924CEB7F69109E44 /* Pods-LBTAPodcast.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LBTAPodcast.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LBTAPodcast/Pods-LBTAPodcast.debug.xcconfig"; sourceTree = "<group>"; };
@@ -116,6 +120,7 @@
 		1131965A21D5F34D00B3D1C1 /* LBTAPodcast */ = {
 			isa = PBXGroup;
 			children = (
+				114E3A5B2227867200EC5A05 /* Extensions */,
 				1130F95C21FECF580056D7BB /* APIService */,
 				1130F95B21FEB3870056D7BB /* Model */,
 				1130F95F21FED61B0056D7BB /* Views */,
@@ -128,6 +133,15 @@
 				1131966D21D5F42300B3D1C1 /* MainTabBarController.swift */,
 			);
 			path = LBTAPodcast;
+			sourceTree = "<group>";
+		};
+		114E3A5B2227867200EC5A05 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				114E3A5C2227868300EC5A05 /* String.swift */,
+				114E3A5E2227899400EC5A05 /* RSSFeed.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		C9797BDE81CA8A9BBC62BE73 /* Frameworks */ = {
@@ -272,7 +286,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				114E3A5F2227899400EC5A05 /* RSSFeed.swift in Sources */,
 				1130F95821FEB2590056D7BB /* PodcastsSearchController.swift in Sources */,
+				114E3A5D2227868300EC5A05 /* String.swift in Sources */,
 				1131965E21D5F34D00B3D1C1 /* ViewController.swift in Sources */,
 				1131965C21D5F34D00B3D1C1 /* AppDelegate.swift in Sources */,
 				1130F969220323CE0056D7BB /* EpisodesController.swift in Sources */,

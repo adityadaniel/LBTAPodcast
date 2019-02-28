@@ -12,6 +12,7 @@ import FeedKit
 class EpisodesController: UITableViewController {
     
     let cellId = "cellId"
+    var episodes = [Episode]()
     
     var podcast: Podcast! {
         didSet {
@@ -19,8 +20,6 @@ class EpisodesController: UITableViewController {
             fetchEpisodes()
         }
     }
-
-    var episodes = [Episode]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,24 +28,11 @@ class EpisodesController: UITableViewController {
     
     fileprivate func fetchEpisodes(){
         guard let feedUrl = podcast.feedUrl else { return }
-        let secureFeedUrl = feedUrl.contains("https") ? feedUrl : feedUrl.replacingOccurrences(of: "http", with: "https")
-        guard let url = URL(string: secureFeedUrl) else { return }
-        let parser = FeedParser(URL: url)
-        parser.parseAsync { (result) in
-            switch result {
-            case let .rss(feed):
-                var episodes = [Episode]()
-                feed.items?.forEach({ (feedItem) in
-                    episodes.append(Episode(feedItem: feedItem))
-                })
-                self.episodes = episodes
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
-                }
-            default:
-                break
+        APIService.shared.fetchEpisodes(feedUrl: feedUrl) { (episodes) in
+            self.episodes = episodes
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
             }
-            
         }
     }
     
@@ -58,6 +44,17 @@ class EpisodesController: UITableViewController {
     }
     
     //MARK:- Setup TableView
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let ep = self.episodes[indexPath.row]
+        let window = UIApplication.shared.keyWindow
+        let redView = UIView()
+        redView.backgroundColor = .red
+        redView.frame = self.view.frame
+        window?.addSubview(redView)
+        print(ep)
+    }
+    
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return episodes.count
     }

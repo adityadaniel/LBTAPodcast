@@ -46,12 +46,14 @@ class EpisodesController: UITableViewController {
     //MARK:- Setup TableView
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let ep = self.episodes[indexPath.row]
+        
         let window = UIApplication.shared.keyWindow
-        let redView = UIView()
-        redView.backgroundColor = .red
-        redView.frame = self.view.frame
-        window?.addSubview(redView)
-        print(ep)
+        let playerDetailViews = Bundle.main.loadNibNamed("PlayerDetailViews", owner: self, options: nil)?.first as! PlayerDetailViews
+        
+        playerDetailViews.episode = ep
+        
+        playerDetailViews.frame = self.view.frame
+        window?.addSubview(playerDetailViews)
     }
     
     

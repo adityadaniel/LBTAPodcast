@@ -11,7 +11,7 @@ import FeedKit
 extension RSSFeed {
     
     func toEpisodes() -> [Episode] {
-        let imageURL = iTunes?.iTunesImage?.attributes?.href
+        let imageURL = iTunes?.iTunesImage?.attributes?.href?.toSecureHTTPS()
         var episodes = [Episode]()
         items?.forEach({ (feedItem) in
             var ep = Episode(feedItem: feedItem)

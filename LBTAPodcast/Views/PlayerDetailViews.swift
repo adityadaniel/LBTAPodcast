@@ -29,6 +29,7 @@ class PlayerDetailViews: UIView {
         let playerItem = AVPlayerItem(url: url)
         player.replaceCurrentItem(with: playerItem)
         player.play()
+        handlePlayPause()
     }
     
     let player: AVPlayer = {
@@ -37,11 +38,83 @@ class PlayerDetailViews: UIView {
         return avPlayer
     }()
     
+    fileprivate func observePlayerCurrentTime() {
+        let interval = CMTimeMake(value: 1, timescale: 2)
+        player.addPeriodicTimeObserver(forInterval: interval, queue: .main) { (time) in
+            
+            self.currentTimeLabel.text = time.toStringFormat()
+            self.durationLabel.text = self.player.currentItem?.duration.toStringFormat()
+            
+            self.updateTimeSlider()
+        }
+    }
+    
+    fileprivate func updateTimeSlider() {
+        let currentTime = CMTimeGetSeconds(player.currentTime())
+        let duration = CMTimeGetSeconds(player.currentItem?.duration ?? CMTimeMake(value: 1, timescale: 1))
+        
+        let percentage = currentTime / duration
+        self.currentTimeSliderOutlet.value = Float(percentage)
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        observePlayerCurrentTime()
+        
+        let time = CMTime(value: 1, timescale: 3)
+        let times = [NSValue(time: time)]
+        player.addBoundaryTimeObserver(forTimes: times, queue: .main) {
+            print("Episode started playing")
+            self.enlargeEpisodeImageView()
+        }
+    }
+    
+    fileprivate func enlargeEpisodeImageView() {
+        UIView.animate(withDuration: 0.75, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+            self.episodeImageView.transform = .identity
+        }, completion: nil)
+    }
+    
+    fileprivate let shrunkenTransform =  CGAffineTransform(scaleX: 0.7, y: 0.7)
+    
+    fileprivate func shrinkEpisodeImageView() {
+        UIView.animate(withDuration: 0.75, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+            self.episodeImageView.transform = self.shrunkenTransform
+        }, completion: nil)
+    }
+    
+    fileprivate func handlePlayPause() {
+        if player.timeControlStatus == .paused {
+            player.play()
+            playAndPauseButton.setImage(#imageLiteral(resourceName: "player-pause"), for: .normal)
+            enlargeEpisodeImageView()
+        } else {
+            player.pause()
+            playAndPauseButton.setImage(#imageLiteral(resourceName: "player-play"), for: .normal)
+            shrinkEpisodeImageView()
+        }
+    }
+    
+    fileprivate func seekToCurrentTime(delta: Int64) {
+        let fifteenSeconds = CMTimeMake(value: delta, timescale: 1)
+        let seekTime = CMTimeAdd(player.currentTime(), fifteenSeconds)
+        player.seek(to: seekTime)
+    }
+    
+    //MARK:- IBOutlet and Actions
     
     @IBAction func handleDismiss(_ sender: Any) {
         self.removeFromSuperview()
     }
-    @IBOutlet weak var episodeImageView: UIImageView! 
+    
+    @IBOutlet weak var episodeImageView: UIImageView! {
+        didSet {
+            episodeImageView.layer.cornerRadius = 12
+            episodeImageView.clipsToBounds = true
+            episodeImageView.transform = self.shrunkenTransform
+        }
+    }
     
     @IBOutlet weak var episodeTitleLabel: UILabel! {
         didSet {
@@ -56,13 +129,32 @@ class PlayerDetailViews: UIView {
     
     @IBOutlet weak var playAndPauseButton: UIButton!
     
-    fileprivate func handlePlayPause() {
-        if player.timeControlStatus == .paused {
-            player.play()
-            playAndPauseButton.setImage(#imageLiteral(resourceName: "player-pause"), for: .normal)
-        } else {
-            player.pause()
-            playAndPauseButton.setImage(#imageLiteral(resourceName: "player-play"), for: .normal)
-        }
+    @IBOutlet weak var currentTimeLabel: UILabel!
+    
+    @IBOutlet weak var durationLabel: UILabel!
+    
+    @IBAction func currentTimeSlider(_ sender: Any) {
+        let percentage = currentTimeSliderOutlet.value
+        
+        guard let duration = player.currentItem?.duration else { return }
+        let durationInSeconds = CMTimeGetSeconds(duration)
+        let seekTimeInSeconds = Float64(percentage) * durationInSeconds
+        let seekTime = CMTimeMakeWithSeconds(seekTimeInSeconds, preferredTimescale: Int32(NSEC_PER_SEC))
+        player.seek(to: seekTime)
     }
+    @IBOutlet weak var currentTimeSliderOutlet: UISlider!
+    
+    @IBAction func handleRewind(_ sender: Any) {
+        seekToCurrentTime(delta: -15)
+    }
+    
+    @IBAction func handleForward(_ sender: Any) {
+        seekToCurrentTime(delta: 15)
+    }
+    
+    @IBAction func handleVolumeChange(_ sender: UISlider) {
+        player.volume = sender.value
+    }
+    
+    
 }

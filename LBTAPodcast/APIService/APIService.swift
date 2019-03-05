@@ -45,17 +45,20 @@ class APIService {
     func fetchEpisodes(feedUrl: String, completionHandler: @escaping ([Episode]) -> ()) {
         let secureFeedUrl = feedUrl.toSecureHTTPS()
         guard let url = URL(string: secureFeedUrl) else { return }
-        let parser = FeedParser(URL: url)
-        parser.parseAsync { (result) in
-            
-            if let err = result.error {
-                print("Failed to parse XML results", err)
-                return
+        
+        DispatchQueue.global(qos: .background).async {
+            let parser = FeedParser(URL: url)
+            parser.parseAsync { (result) in
+                
+                if let err = result.error {
+                    print("Failed to parse XML results", err)
+                    return
+                }
+                
+                guard let feed = result.rssFeed else { return }
+                let episodes = feed.toEpisodes()
+                completionHandler(episodes)
             }
-            
-            guard let feed = result.rssFeed else { return }
-            let episodes = feed.toEpisodes()
-            completionHandler(episodes)
         }
     }
     

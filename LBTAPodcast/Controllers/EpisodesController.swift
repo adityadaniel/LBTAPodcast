@@ -44,6 +44,18 @@ class EpisodesController: UITableViewController {
     }
     
     //MARK:- Setup TableView
+    
+    override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let activityIndicatorView = UIActivityIndicatorView(style: .whiteLarge)
+        activityIndicatorView.color = .gray
+        activityIndicatorView.startAnimating()
+        return activityIndicatorView
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return episodes.isEmpty ? 200 : 0
+    }
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let ep = self.episodes[indexPath.row]
         

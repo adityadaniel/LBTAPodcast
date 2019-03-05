@@ -29,6 +29,18 @@ class PodcastsSearchController: UITableViewController, UISearchBarDelegate  {
     
     
     //MARK:- TableView
+    override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        
+        let activityIndicatorView = UIActivityIndicatorView(style: .whiteLarge)
+        activityIndicatorView.color = .gray
+        activityIndicatorView.startAnimating()
+        return activityIndicatorView
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return self.podcasts.isEmpty ? 200 : 0
+    }
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return podcasts.count
     }
@@ -66,12 +78,15 @@ class PodcastsSearchController: UITableViewController, UISearchBarDelegate  {
     }
     
     //MARK:- Search function
+    var timer: Timer?
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        APIService.shared.fetchPodcasts(with: searchText) { (podcasts) in
-            self.podcasts = podcasts
-            self.tableView.reloadData()
-        }
-       
+        timer?.invalidate()
+        timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { (timer) in
+            APIService.shared.fetchPodcasts(with: searchText) { (podcasts) in
+                self.podcasts = podcasts
+                self.tableView.reloadData()
+            }
+        })
     }
     
     fileprivate func setupTableView() {

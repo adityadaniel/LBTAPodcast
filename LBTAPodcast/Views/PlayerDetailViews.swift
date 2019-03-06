@@ -14,10 +14,13 @@ class PlayerDetailViews: UIView {
     var episode: Episode! {
         didSet {
             episodeTitleLabel.text = episode.title
+            miniEpisodeTitleLabel.text = episode.title
+            
             guard let url = URL(string: episode.imageURL ?? "") else { return }
             episodeImageView.sd_setImage(with: url)
-            authorLabel.text = episode.author
+            miniEpisodeImageView.sd_setImage(with: url)
             
+            authorLabel.text = episode.author
             playEpisode()
         }
     }
@@ -60,6 +63,8 @@ class PlayerDetailViews: UIView {
     override func awakeFromNib() {
         super.awakeFromNib()
         
+        addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTapMaximize)))
+        
         observePlayerCurrentTime()
         
         let time = CMTime(value: 1, timescale: 3)
@@ -72,6 +77,15 @@ class PlayerDetailViews: UIView {
             print("Episode started playing")
             self?.enlargeEpisodeImageView()
         }
+    }
+    
+    @objc func handleTapMaximize() {
+        let mainTabBarController = UIApplication.shared.keyWindow?.rootViewController as? MainTabBarController
+        mainTabBarController?.maximizePlayerDetails(episode: nil)
+    }
+    
+    static func initFromNib() -> PlayerDetailViews {
+        return Bundle.main.loadNibNamed("PlayerDetailViews", owner: self, options: nil)?.first as! PlayerDetailViews
     }
     
     fileprivate func enlargeEpisodeImageView() {
@@ -88,14 +102,16 @@ class PlayerDetailViews: UIView {
         }, completion: nil)
     }
     
-    fileprivate func handlePlayPause() {
+    @objc fileprivate func handlePlayPause() {
         if player.timeControlStatus == .paused {
             player.play()
             playAndPauseButton.setImage(#imageLiteral(resourceName: "player-pause"), for: .normal)
+            miniPlayPauseButton.setImage(#imageLiteral(resourceName: "player-pause"), for: .normal)
             enlargeEpisodeImageView()
         } else {
             player.pause()
             playAndPauseButton.setImage(#imageLiteral(resourceName: "player-play"), for: .normal)
+            miniPlayPauseButton.setImage(#imageLiteral(resourceName: "player-play"), for: .normal)
             shrinkEpisodeImageView()
         }
     }
@@ -107,9 +123,26 @@ class PlayerDetailViews: UIView {
     }
     
     //MARK:- IBOutlet and Actions
+    @IBOutlet weak var miniEpisodeImageView: UIImageView!
+    @IBOutlet weak var miniEpisodeTitleLabel: UILabel!
+    
+    @IBOutlet weak var miniPlayPauseButton: UIButton! {
+        didSet {
+            miniPlayPauseButton.addTarget(self, action: #selector(handlePlayPause), for: .touchUpInside)
+        }
+    }
+    
+    @IBOutlet weak var miniFastForwardButton: UIButton! {
+        didSet {
+            miniFastForwardButton.addTarget(self, action: #selector(handleForward(_:)), for: .touchUpInside)
+        }
+    }
+    @IBOutlet weak var miniPlayerView: UIView!
+    @IBOutlet weak var maximizedStackView: UIStackView!
     
     @IBAction func handleDismiss(_ sender: Any) {
-        self.removeFromSuperview()
+        let mainTabBarController = UIApplication.shared.keyWindow?.rootViewController as? MainTabBarController
+        mainTabBarController?.minimizePlayerDetails()
     }
     
     @IBOutlet weak var episodeImageView: UIImageView! {

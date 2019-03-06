@@ -9,6 +9,9 @@
 import UIKit
 
 class MainTabBarController: UITabBarController {
+    
+    let playerDetailsView = PlayerDetailViews.initFromNib()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -20,6 +23,65 @@ class MainTabBarController: UITabBarController {
         // run setup on all view controllers
         setupViewControllers()
         
+        setupPlayerDetailsView()
+        
+    }
+    
+    @objc func minimizePlayerDetails() {
+        
+        maximizedTopAnchorConstraint.isActive = false
+        minimizedTopAnchorConstraint.isActive = true
+        
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+            self.view.layoutIfNeeded()
+            self.tabBar.transform = CGAffineTransform.identity
+        })
+        self.playerDetailsView.miniPlayerView.alpha = 1
+        self.playerDetailsView.maximizedStackView.alpha = 0
+    }
+    
+    func maximizePlayerDetails(episode: Episode?) {
+        maximizedTopAnchorConstraint.isActive = true
+        maximizedTopAnchorConstraint.constant = 0
+        minimizedTopAnchorConstraint.isActive = false
+        
+        
+        // Check if episode is not nil to prevent crashing the app
+        if episode != nil {
+            playerDetailsView.episode = episode
+        }
+        
+        
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+            self.view.layoutIfNeeded()
+            self.tabBar.transform = CGAffineTransform(scaleX: 0, y: 100)
+            self.playerDetailsView.miniPlayerView.alpha = 0
+            self.playerDetailsView.maximizedStackView.alpha = 1
+        })
+    }
+    
+    var maximizedTopAnchorConstraint: NSLayoutConstraint!
+    var minimizedTopAnchorConstraint: NSLayoutConstraint!
+    
+    fileprivate func setupPlayerDetailsView() {
+    
+        view.insertSubview(playerDetailsView, belowSubview: tabBar)
+        
+        // use autolayout
+        playerDetailsView.translatesAutoresizingMaskIntoConstraints = false
+        
+        
+        // autolayout constraint
+        maximizedTopAnchorConstraint = playerDetailsView.topAnchor.constraint(equalTo: view.topAnchor, constant: view.frame.height)
+        maximizedTopAnchorConstraint.isActive = true
+        
+        minimizedTopAnchorConstraint = playerDetailsView.topAnchor.constraint(equalTo: tabBar.topAnchor, constant: -64)
+        
+        
+        playerDetailsView.topAnchor.constraint(equalTo: tabBar.topAnchor, constant: -64).isActive = true
+        playerDetailsView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        playerDetailsView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        playerDetailsView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     }
     
     //MARK:- Setup all view controllers

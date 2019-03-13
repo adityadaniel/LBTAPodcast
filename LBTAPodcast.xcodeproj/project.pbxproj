@@ -26,6 +26,8 @@
 		1138C22C2227AB4100823C69 /* PlayerDetailViews.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1138C22B2227AB4100823C69 /* PlayerDetailViews.xib */; };
 		114E3A5D2227868300EC5A05 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114E3A5C2227868300EC5A05 /* String.swift */; };
 		114E3A5F2227899400EC5A05 /* RSSFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114E3A5E2227899400EC5A05 /* RSSFeed.swift */; };
+		1171CC662238B55900694389 /* PlayerDetailViews+Gestures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1171CC652238B55900694389 /* PlayerDetailViews+Gestures.swift */; };
+		1171CC682238B92800694389 /* UIApplications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1171CC672238B92800694389 /* UIApplications.swift */; };
 		DBEFFF68A9A9F5700B4D8C8F /* Pods_LBTAPodcast.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1555A0CF81E348918744547B /* Pods_LBTAPodcast.framework */; };
 /* End PBXBuildFile section */
 
@@ -51,6 +53,8 @@
 		1138C22B2227AB4100823C69 /* PlayerDetailViews.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlayerDetailViews.xib; sourceTree = "<group>"; };
 		114E3A5C2227868300EC5A05 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		114E3A5E2227899400EC5A05 /* RSSFeed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSSFeed.swift; sourceTree = "<group>"; };
+		1171CC652238B55900694389 /* PlayerDetailViews+Gestures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PlayerDetailViews+Gestures.swift"; sourceTree = "<group>"; };
+		1171CC672238B92800694389 /* UIApplications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplications.swift; sourceTree = "<group>"; };
 		1555A0CF81E348918744547B /* Pods_LBTAPodcast.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LBTAPodcast.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7FE621B5FDA0C3103F88F55C /* Pods-LBTAPodcast.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LBTAPodcast.release.xcconfig"; path = "Pods/Target Support Files/Pods-LBTAPodcast/Pods-LBTAPodcast.release.xcconfig"; sourceTree = "<group>"; };
 		AB0F9E2F924CEB7F69109E44 /* Pods-LBTAPodcast.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LBTAPodcast.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LBTAPodcast/Pods-LBTAPodcast.debug.xcconfig"; sourceTree = "<group>"; };
@@ -103,6 +107,7 @@
 				111C1C02221412350058A7FE /* EpisodeCell.xib */,
 				1138C22B2227AB4100823C69 /* PlayerDetailViews.xib */,
 				110574512228C8C300E11871 /* PlayerDetailViews.swift */,
+				1171CC652238B55900694389 /* PlayerDetailViews+Gestures.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -149,6 +154,7 @@
 				114E3A5C2227868300EC5A05 /* String.swift */,
 				114E3A5E2227899400EC5A05 /* RSSFeed.swift */,
 				1115E872222E2175004AE0E0 /* CMTime.swift */,
+				1171CC672238B92800694389 /* UIApplications.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -204,6 +210,11 @@
 				TargetAttributes = {
 					1131965721D5F34D00B3D1C1 = {
 						CreatedOnToolsVersion = 10.1;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -296,9 +307,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1171CC662238B55900694389 /* PlayerDetailViews+Gestures.swift in Sources */,
 				114E3A5F2227899400EC5A05 /* RSSFeed.swift in Sources */,
 				1130F95821FEB2590056D7BB /* PodcastsSearchController.swift in Sources */,
 				114E3A5D2227868300EC5A05 /* String.swift in Sources */,
+				1171CC682238B92800694389 /* UIApplications.swift in Sources */,
 				110574522228C8C300E11871 /* PlayerDetailViews.swift in Sources */,
 				1115E873222E2175004AE0E0 /* CMTime.swift in Sources */,
 				1131965E21D5F34D00B3D1C1 /* ViewController.swift in Sources */,

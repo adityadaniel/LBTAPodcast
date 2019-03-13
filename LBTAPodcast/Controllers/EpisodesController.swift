@@ -62,19 +62,6 @@ class EpisodesController: UITableViewController {
         
         let mainTabBarController = UIApplication.shared.keyWindow?.rootViewController as? MainTabBarController
         mainTabBarController?.maximizePlayerDetails(episode: ep)
-        
-        
-        
-//
-//
-//        let window = UIApplication.shared.keyWindow
-//
-//        let playerDetailViews = PlayerDetailViews.initFromNib()
-//
-//        playerDetailViews.episode = ep
-//
-//        playerDetailViews.frame = self.view.frame
-//        window?.addSubview(playerDetailViews)
     }
     
     
